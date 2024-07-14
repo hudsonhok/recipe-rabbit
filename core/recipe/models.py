@@ -2,10 +2,8 @@ from django.db import models
 
 from core.abstract.models import AbstractModel, AbstractManager
 
-
 class RecipeManager(AbstractManager):
     pass
-
 
 class Recipe(AbstractModel):
     author = models.ForeignKey(to="core_user.User", on_delete=models.CASCADE)

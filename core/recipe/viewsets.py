@@ -7,7 +7,6 @@ from core.recipe.models import Recipe
 from core.recipe.serializers import RecipeSerializer
 from core.auth.permissions import UserPermission
 
-
 class RecipeViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete')
     permission_classes = (UserPermission,)

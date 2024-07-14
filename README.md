@@ -1,2 +1,1 @@
-# Full-stack-Django-and-React
-Full-stack Django and React, published by Packt
+# Recipe Rabbit, a Full-Stack Web Application using React and Django

@@ -6,7 +6,6 @@ from core.recipe.models import Recipe
 from core.user.models import User
 from core.user.serializers import UserSerializer
 
-
 class RecipeSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
     favorited = serializers.SerializerMethodField()

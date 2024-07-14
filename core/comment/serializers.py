@@ -7,8 +7,8 @@ from core.user.serializers import UserSerializer
 from core.comment.models import Comment
 from core.recipe.models import Recipe
 
-
 class CommentSerializer(AbstractSerializer):
+    # Read-only fields that allow you to easily serialize and deserialize the relationships between Comment, User, and Recipe models
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
     recipe = serializers.SlugRelatedField(queryset=Recipe.objects.all(), slug_field='public_id')
 

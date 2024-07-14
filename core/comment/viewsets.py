@@ -1,5 +1,4 @@
 from django.http.response import Http404
-
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -7,7 +6,6 @@ from core.abstract.viewsets import AbstractViewSet
 from core.comment.models import Comment
 from core.comment.serializers import CommentSerializer
 from core.auth.permissions import UserPermission
-
 
 class CommentViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete')
@@ -37,5 +35,3 @@ class CommentViewSet(AbstractViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-

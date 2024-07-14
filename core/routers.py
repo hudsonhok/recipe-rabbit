@@ -7,25 +7,16 @@ from core.comment.viewsets import CommentViewSet
 
 router = routers.SimpleRouter()
 
-# ##################################################################### #
-# ################### AUTH                       ###################### #
-# ##################################################################### #
-
+# AUTH
 router.register(r'auth/register', RegisterViewSet, basename='auth-register')
 router.register(r'auth/login', LoginViewSet, basename='auth-login')
 router.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
 
 
-# ##################################################################### #
-# ################### USER                       ###################### #
-# ##################################################################### #
-
+# USER
 router.register(r'user', UserViewSet, basename='user')
 
-# ##################################################################### #
-# ################### RECIPE                     ###################### #
-# ##################################################################### #
-
+# RECIPE
 router.register(r'recipe', RecipeViewSet, basename='recipe')
 
 recipes_router = routers.NestedSimpleRouter(router, r'recipe', lookup='recipe')

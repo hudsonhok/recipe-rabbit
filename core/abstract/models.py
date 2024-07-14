@@ -1,9 +1,12 @@
 from django.db import models
-import uuid
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
+import uuid
 
+'''
+This abstract app allows us to create reusable components such as serializers 
+and models with common fields and functionalities across different apps.
+'''
 
 class AbstractManager(models.Manager):
     def get_object_by_public_id(self, public_id):
@@ -12,7 +15,6 @@ class AbstractManager(models.Manager):
             return instance
         except (ObjectDoesNotExist, ValueError, TypeError):
             return Http404
-
 
 class AbstractModel(models.Model):
     public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4, editable=False)
