@@ -10,6 +10,10 @@ class RecipeSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
     favorited = serializers.SerializerMethodField()
     favorites_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    def get_comments_count(self, instance):
+        return instance.comment_set.count()
 
     def get_favorited(self, instance):
 
@@ -18,7 +22,7 @@ class RecipeSerializer(AbstractSerializer):
         if request is None or request.user.is_anonymous:
             return False
 
-        return request.user.has_favorited(instance)
+        return request.user.has_favorited_recipe(instance)
 
     def get_favorites_count(self, instance):
         return instance.favorited_by.count()
@@ -39,12 +43,12 @@ class RecipeSerializer(AbstractSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
-        rep["author"] = UserSerializer(author).data
+        rep["author"] = UserSerializer(author, context=self.context).data
 
         return rep
 
     class Meta:
         model = Recipe
         # List of all the fields that can be included in a request or a response
-        fields = ['id', 'author', 'body', 'edited', 'favorited', 'favorites_count', 'created', 'updated']
+        fields = ['id', 'author', 'body', 'edited', 'favorited', 'favorites_count', 'comments_count', 'created', 'updated']
         read_only_fields = ["edited"]

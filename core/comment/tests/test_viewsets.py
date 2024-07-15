@@ -10,9 +10,7 @@ class TestCommentViewSet:
     
     endpoint = '/api/recipe/'
     
-    ###########################################################################
-    ############### Test Comment ViewSet with authenticated user ##############
-    ###########################################################################
+    # Test Comment ViewSet with authenticated user
     
     def test_list(self, client, user, recipe, comment):
         client.force_authenticate(user=user)
@@ -57,9 +55,7 @@ class TestCommentViewSet:
         assert response.status_code == status.HTTP_204_NO_CONTENT
         
     
-    ###########################################################################
-    ####### Test Comment ViewSet with anonymous user ##########################
-    ###########################################################################
+    # Test Comment ViewSet with anonymous user
     
     def test_list_anonymous(self, client, recipe, comment):
         response = client.get(self.endpoint + str(recipe.public_id) + "/comment/")

@@ -11,6 +11,7 @@ class RecipeViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete')
     permission_classes = (UserPermission,)
     serializer_class = RecipeSerializer
+    filterset_fields = ['author__public_id']
 
     def get_queryset(self):
         return Recipe.objects.all()
@@ -33,9 +34,9 @@ class RecipeViewSet(AbstractViewSet):
         recipe = self.get_object()
         user = self.request.user
 
-        user.favorite(recipe)
+        user.favorite_recipe(recipe)
 
-        serializer = self.serializer_class(recipe)
+        serializer = self.serializer_class(recipe, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -44,9 +45,9 @@ class RecipeViewSet(AbstractViewSet):
         recipe = self.get_object()
         user = self.request.user
 
-        user.remove_favorite(recipe)
+        user.remove_favorite_recipe(recipe)
 
-        serializer = self.serializer_class(recipe)
+        serializer = self.serializer_class(recipe, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
