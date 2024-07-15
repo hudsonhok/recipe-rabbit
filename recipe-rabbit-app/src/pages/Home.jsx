@@ -20,6 +20,11 @@ function Home() {
     return <div>Loading!</div>;
   }
 
+  // Sort recipes in reverse chronological order
+  const sortedRecipes = recipes.data?.results.sort((a, b) => 
+    new Date(b.created) - new Date(a.created)
+  );
+
   return (
     <Layout>
       <Row className="justify-content-evenly">
@@ -39,7 +44,7 @@ function Home() {
             </Col>
           </Row>
           <Row className="my-4">
-            {recipes.data?.results.map((recipe, index) => (
+            {sortedRecipes?.map((recipe, index) => (
               <Recipe key={index} recipe={recipe} refresh={recipes.mutate} />
             ))}
           </Row>

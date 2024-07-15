@@ -11,13 +11,19 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('core_recipe', '0001_initial'),
+        ('core_comment', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='recipe',
+            model_name='comment',
             name='author',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='comment',
+            name='recipe',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core_recipe.recipe'),
         ),
     ]

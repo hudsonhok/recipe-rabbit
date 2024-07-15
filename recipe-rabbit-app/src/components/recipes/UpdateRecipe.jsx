@@ -10,6 +10,9 @@ function UpdateRecipe(props) {
   const [form, setForm] = useState({
     author: recipe.author.id,
     body: recipe.body,
+    cooking_time: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    instructions: recipe.instructions,
   });
 
   const { setToaster } = useContext(Context);
@@ -30,6 +33,9 @@ function UpdateRecipe(props) {
     const data = {
       author: form.author,
       body: form.body,
+      cooking_time: form.cooking_time,
+      ingredients: form.ingredients,
+      instructions: form.instructions,
     };
 
     axiosService
@@ -79,6 +85,49 @@ function UpdateRecipe(props) {
                 onChange={(e) => setForm({ ...form, body: e.target.value })}
                 as="textarea"
                 rows={3}
+                placeholder="Recipe Description"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="cooking_time"
+                value={form.cooking_time}
+                data-testid="recipe-cooking-time-field"
+                onChange={(e) =>
+                  setForm({ ...form, cooking_time: e.target.value })
+                }
+                type="text"
+                placeholder="Cooking Time"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="ingredients"
+                value={form.ingredients}
+                data-testid="recipe-ingredients-field"
+                onChange={(e) =>
+                  setForm({ ...form, ingredients: e.target.value })
+                }
+                as="textarea"
+                rows={3}
+                placeholder="Ingredients"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="instructions"
+                value={form.instructions}
+                data-testid="recipe-instructions-field"
+                onChange={(e) =>
+                  setForm({ ...form, instructions: e.target.value })
+                }
+                as="textarea"
+                rows={3}
+                placeholder="Instructions"
+                required
               />
             </Form.Group>
           </Form>

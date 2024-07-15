@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { format } from "timeago.js";
 import { HeartOutlined, CommentOutlined, HeartFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -84,6 +84,15 @@ function Recipe(props) {
             )}
           </Card.Title>
           <Card.Text>{recipe.body}</Card.Text>
+          <Card.Text>
+            <strong>Cooking Time:</strong> {recipe.cooking_time}
+          </Card.Text>
+          <Card.Text>
+            <strong>Ingredients:</strong> {recipe.ingredients}
+          </Card.Text>
+          <Card.Text>
+            <strong>Instructions:</strong> {recipe.instructions}
+          </Card.Text>
           <div className="d-flex flex-row justify-content-between">
             <div className="d-flex flex-row">
               <HeartFilled
