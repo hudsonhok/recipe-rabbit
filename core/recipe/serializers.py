@@ -50,5 +50,5 @@ class RecipeSerializer(AbstractSerializer):
     class Meta:
         model = Recipe
         # List of all the fields that can be included in a request or a response
-        fields = ['id', 'author', 'body', 'edited', 'favorited', 'favorites_count', 'comments_count', 'created', 'updated', 'cooking_time', 'ingredients', 'instructions']
+        fields = ['id', 'author', 'recipe_pic', 'body', 'edited', 'favorited', 'favorites_count', 'comments_count', 'created', 'updated', 'cooking_time', 'ingredients', 'instructions']
         read_only_fields = ["edited"]

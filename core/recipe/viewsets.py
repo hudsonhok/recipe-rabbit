@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 
 from core.abstract.viewsets import AbstractViewSet
 from core.recipe.models import Recipe
@@ -25,7 +26,12 @@ class RecipeViewSet(AbstractViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except ValidationError as e:
+            # Debugging: Log the validation error
+            print(f"Validation error: {e}")
+            raise e
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

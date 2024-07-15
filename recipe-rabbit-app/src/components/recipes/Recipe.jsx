@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { format } from "timeago.js";
 import { HeartOutlined, CommentOutlined, HeartFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -83,6 +83,14 @@ function Recipe(props) {
               </div>
             )}
           </Card.Title>
+          {recipe.recipe_pic && (
+            <Card.Img
+              variant="top"
+              src={recipe.recipe_pic}
+              alt="Recipe Image"
+              className="mt-3"
+            />
+          )}
           <Card.Text>{recipe.body}</Card.Text>
           <Card.Text>
             <strong>Cooking Time:</strong> {recipe.cooking_time}

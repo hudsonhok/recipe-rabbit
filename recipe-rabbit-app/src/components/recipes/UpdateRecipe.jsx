@@ -15,6 +15,8 @@ function UpdateRecipe(props) {
     instructions: recipe.instructions,
   });
 
+  const [recipe_pic, setRecipe_pic] = useState();
+
   const { setToaster } = useContext(Context);
 
   const handleClose = () => setShow(false);
@@ -30,16 +32,22 @@ function UpdateRecipe(props) {
 
     setValidated(true);
 
-    const data = {
-      author: form.author,
-      body: form.body,
-      cooking_time: form.cooking_time,
-      ingredients: form.ingredients,
-      instructions: form.instructions,
-    };
+    const formData = new FormData();
+    formData.append("author", form.author);
+    formData.append("body", form.body);
+    formData.append("cooking_time", form.cooking_time);
+    formData.append("ingredients", form.ingredients);
+    formData.append("instructions", form.instructions);
+    if (recipe_pic) {
+      formData.append("recipe_pic", recipe_pic);
+    }
 
     axiosService
-      .put(`/recipe/${recipe.id}/`, data)
+      .put(`/recipe/${recipe.id}/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then(() => {
         handleClose();
         setToaster({
@@ -77,6 +85,14 @@ function UpdateRecipe(props) {
             onSubmit={handleSubmit}
             data-testid="update-recipe-form"
           >
+            <Form.Group className="mb-3">
+              <Form.Label>Recipe Image</Form.Label>
+              <Form.Control
+                onChange={(e) => setRecipe_pic(e.target.files[0])}
+                type="file"
+                accept="image/*"
+              />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 name="body"

@@ -16,6 +16,8 @@ function CreateRecipe(props) {
     instructions: "",
   });
 
+  const [recipe_pic, setRecipe_pic] = useState();
+
   const { setToaster } = useContext(Context);
 
   const user = getUser();
@@ -26,23 +28,34 @@ function CreateRecipe(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const createRecipeForm = event.currentTarget;
-
+  
     if (createRecipeForm.checkValidity() === false) {
       event.stopPropagation();
     }
-
+  
     setValidated(true);
-
-    const data = {
-      author: user.id,
-      body: form.body,
-      cooking_time: form.cooking_time,
-      ingredients: form.ingredients,
-      instructions: form.instructions,
-    };
-
+  
+    const formData = new FormData();
+    formData.append("author", user.id);
+    formData.append("body", form.body);
+    formData.append("cooking_time", form.cooking_time);
+    formData.append("ingredients", form.ingredients);
+    formData.append("instructions", form.instructions);
+    if (recipe_pic) {
+      formData.append("recipe_pic", recipe_pic);
+    }
+  
+    // Debugging: Log form data
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+  
     axiosService
-      .post("/recipe/", data)
+      .post("/recipe/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then(() => {
         handleClose();
         setToaster({
@@ -63,6 +76,7 @@ function CreateRecipe(props) {
         });
       });
   };
+  
 
   return (
     <>
@@ -87,6 +101,14 @@ function CreateRecipe(props) {
             onSubmit={handleSubmit}
             data-testid="create-recipe-form"
           >
+            <Form.Group className="mb-3">
+              <Form.Label>Recipe Image</Form.Label>
+              <Form.Control
+                onChange={(e) => setRecipe_pic(e.target.files[0])}
+                type="file"
+                accept="image/*"
+              />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 name="body"
@@ -140,6 +162,7 @@ function CreateRecipe(props) {
                 required
               />
             </Form.Group>
+            
           </Form>
         </Modal.Body>
         <Modal.Footer>
