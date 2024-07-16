@@ -57,4 +57,12 @@ class RecipeViewSet(AbstractViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-
+    @action(detail=False, methods=['get'], url_path='search')
+    def search(self, request):
+        query = request.GET.get('q', '')
+        if query:
+            recipes = Recipe.objects.filter(title__istartswith=query)
+        else:
+            recipes = Recipe.objects.none()
+        serializer = RecipeSerializer(recipes, many=True)
+        return Response(serializer.data)
