@@ -1,5 +1,5 @@
 from rest_framework_nested import routers
-
+from django.urls import path
 from core.recipe.viewsets import RecipeViewSet
 from core.user.viewsets import UserViewSet
 from core.auth.viewsets import RegisterViewSet, LoginViewSet, RefreshViewSet
@@ -25,5 +25,6 @@ recipes_router.register(r'comment', CommentViewSet, basename='recipe-comment')
 
 urlpatterns = [
     *router.urls,
-    *recipes_router.urls
+    *recipes_router.urls,
+    path('recipe/search/', RecipeViewSet.as_view({'get': 'search'}), name='recipe-search')
 ]

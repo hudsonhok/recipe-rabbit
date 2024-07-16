@@ -9,8 +9,9 @@ function UpdateRecipe(props) {
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState({
     author: recipe.author.id,
+    title: recipe.title,
     body: recipe.body,
-    cooking_time: recipe.cooking_time,
+    cooking_time: recipe.cooking_time.slice(0, 5),
     ingredients: recipe.ingredients,
     instructions: recipe.instructions,
   });
@@ -34,8 +35,12 @@ function UpdateRecipe(props) {
 
     const formData = new FormData();
     formData.append("author", form.author);
+    formData.append("title", form.title);
     formData.append("body", form.body);
-    formData.append("cooking_time", form.cooking_time);
+    
+    const cookingTimeWithSeconds = form.cooking_time + ":00";
+    formData.append("cooking_time", cookingTimeWithSeconds);
+    
     formData.append("ingredients", form.ingredients);
     formData.append("instructions", form.instructions);
     if (recipe_pic) {
@@ -86,6 +91,18 @@ function UpdateRecipe(props) {
             data-testid="update-recipe-form"
           >
             <Form.Group className="mb-3">
+              <Form.Control
+                name="title"
+                value={form.title}
+                data-testid="recipe-title-field"
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                as="textarea"
+                rows={3}
+                placeholder="Recipe Title"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
               <Form.Label>Recipe Image</Form.Label>
               <Form.Control
                 onChange={(e) => setRecipe_pic(e.target.files[0])}
@@ -96,8 +113,8 @@ function UpdateRecipe(props) {
             <Form.Group className="mb-3">
               <Form.Control
                 name="body"
-                value={form.body}
                 data-testid="recipe-body-field"
+                value={form.body}
                 onChange={(e) => setForm({ ...form, body: e.target.value })}
                 as="textarea"
                 rows={3}
@@ -108,21 +125,21 @@ function UpdateRecipe(props) {
             <Form.Group className="mb-3">
               <Form.Control
                 name="cooking_time"
-                value={form.cooking_time}
                 data-testid="recipe-cooking-time-field"
+                value={form.cooking_time}
                 onChange={(e) =>
                   setForm({ ...form, cooking_time: e.target.value })
                 }
                 type="text"
-                placeholder="Cooking Time"
+                placeholder="Cooking Time (hh:mm)"
                 required
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 name="ingredients"
-                value={form.ingredients}
                 data-testid="recipe-ingredients-field"
+                value={form.ingredients}
                 onChange={(e) =>
                   setForm({ ...form, ingredients: e.target.value })
                 }
@@ -135,8 +152,8 @@ function UpdateRecipe(props) {
             <Form.Group className="mb-3">
               <Form.Control
                 name="instructions"
-                value={form.instructions}
                 data-testid="recipe-instructions-field"
+                value={form.instructions}
                 onChange={(e) =>
                   setForm({ ...form, instructions: e.target.value })
                 }
@@ -150,11 +167,12 @@ function UpdateRecipe(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            data-testid="update-recipe-submit"
             variant="primary"
             onClick={handleSubmit}
+            disabled={!form.body || !form.cooking_time || !form.ingredients || !form.instructions}
+            data-testid="update-recipe-submit"
           >
-            Modify
+            Update
           </Button>
         </Modal.Footer>
       </Modal>

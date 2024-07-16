@@ -11,6 +11,8 @@ class RecipeManager(AbstractManager):
 
 class Recipe(AbstractModel):
     author = models.ForeignKey(to="core_user.User", on_delete=models.CASCADE)
+    title = models.TextField()
+    body = models.TextField()
     recipe_pic = models.ImageField(null=True, blank=True, upload_to=user_directory_path)
     body = models.TextField()
     edited = models.BooleanField(default=False)
@@ -23,3 +25,7 @@ class Recipe(AbstractModel):
 
     def __str__(self):
         return f"{self.author.name}"
+    def formatted_cooking_time(self):
+        total_minutes = self.cooking_time.total_seconds() // 60
+        hours, minutes = divmod(total_minutes, 60)
+        return f"{int(hours):02d}:{int(minutes):02d}"

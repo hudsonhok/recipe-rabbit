@@ -11,7 +11,11 @@ class RecipeSerializer(AbstractSerializer):
     favorited = serializers.SerializerMethodField()
     favorites_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
-
+    formatted_cooking_time = serializers.SerializerMethodField()
+    
+    def get_formatted_cooking_time(self, obj):
+        return obj.formatted_cooking_time()
+    
     def get_comments_count(self, instance):
         return instance.comment_set.count()
 
@@ -50,5 +54,5 @@ class RecipeSerializer(AbstractSerializer):
     class Meta:
         model = Recipe
         # List of all the fields that can be included in a request or a response
-        fields = ['id', 'author', 'recipe_pic', 'body', 'edited', 'favorited', 'favorites_count', 'comments_count', 'created', 'updated', 'cooking_time', 'ingredients', 'instructions']
+        fields = ['id', 'author', 'title', 'recipe_pic', 'body', 'edited', 'favorited', 'favorites_count', 'comments_count', 'created', 'updated', 'cooking_time', 'ingredients', 'instructions', 'formatted_cooking_time']
         read_only_fields = ["edited"]

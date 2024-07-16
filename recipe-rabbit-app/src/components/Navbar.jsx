@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../App.css";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getUser, useUserActions } from "../hooks/user.actions";
@@ -10,8 +10,15 @@ function NavigationBar() {
   const user = getUser();
 
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar className="navbar" variant="dark">
       <Container>
+        <img
+            src="/images/logo.png" // Path to the image
+            width="40"
+            height="40"
+            className="d-inline-block align-top img-logo-padding"
+            alt="Recipe Rabbit Logo"
+        />
         <Navbar.Brand className="fw-bold" as={Link} to={`/`}>
           Recipe Rabbit
         </Navbar.Brand>

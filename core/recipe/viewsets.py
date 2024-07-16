@@ -56,4 +56,5 @@ class RecipeViewSet(AbstractViewSet):
         serializer = self.serializer_class(recipe, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
 

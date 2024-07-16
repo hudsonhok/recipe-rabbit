@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useLocation } from 'react-router-dom';
 import { format } from "timeago.js";
 import { HeartOutlined, CommentOutlined, HeartFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -8,12 +9,14 @@ import { getUser } from "../../hooks/user.actions";
 import UpdateRecipe from "./UpdateRecipe";
 import { Context } from "../Layout";
 import MoreToggleIcon from "../MoreToggleIcon";
+import "../../App.css"
 
 function Recipe(props) {
   const { recipe, refresh, isSingleRecipe } = props;
   const { setToaster } = useContext(Context);
 
   const user = getUser();
+  const location = useLocation();
 
   const handleFavoriteClick = (action) => {
     axiosService
@@ -68,7 +71,15 @@ function Recipe(props) {
             </div>
             {user.name === recipe.author.name && (
               <div>
+                
                 <Dropdown>
+                  {location.pathname !== `/recipe/${recipe.id}/` && (
+                    <Link to={`/recipe/${recipe.id}/`}>
+                      <button className="btn btn-link text-decoration-none me-2">
+                        View Recipe
+                      </button>
+                    </Link>
+                  )}
                   <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
                   <Dropdown.Menu>
                     <UpdateRecipe recipe={recipe} refresh={refresh} />
@@ -83,17 +94,18 @@ function Recipe(props) {
               </div>
             )}
           </Card.Title>
+          <Card.Text className="recipe-title">{recipe.title}</Card.Text>
           {recipe.recipe_pic && (
             <Card.Img
               variant="top"
               src={recipe.recipe_pic}
               alt="Recipe Image"
-              className="mt-3"
+              className="mt-3 scaled-img"
             />
           )}
-          <Card.Text>{recipe.body}</Card.Text>
+          <Card.Text><div className="mt-3">{recipe.body}</div></Card.Text>
           <Card.Text>
-            <strong>Cooking Time:</strong> {recipe.cooking_time}
+            <strong>Cooking Time:</strong> {recipe.formatted_cooking_time}
           </Card.Text>
           <Card.Text>
             <strong>Ingredients:</strong> {recipe.ingredients}

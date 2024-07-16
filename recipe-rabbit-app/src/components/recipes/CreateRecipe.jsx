@@ -10,6 +10,7 @@ function CreateRecipe(props) {
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState({
     author: "",
+    title: "",
     body: "",
     cooking_time: "",
     ingredients: "",
@@ -37,8 +38,12 @@ function CreateRecipe(props) {
   
     const formData = new FormData();
     formData.append("author", user.id);
+    formData.append("title", form.title);
     formData.append("body", form.body);
-    formData.append("cooking_time", form.cooking_time);
+    
+    const cookingTimeWithSeconds = form.cooking_time + ":00";
+    formData.append("cooking_time", cookingTimeWithSeconds);
+    
     formData.append("ingredients", form.ingredients);
     formData.append("instructions", form.instructions);
     if (recipe_pic) {
@@ -102,6 +107,18 @@ function CreateRecipe(props) {
             data-testid="create-recipe-form"
           >
             <Form.Group className="mb-3">
+              <Form.Control
+                name="title"
+                data-testid="recipe-title-field"
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                as="textarea"
+                rows={3}
+                placeholder="Recipe Title"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
               <Form.Label>Recipe Image</Form.Label>
               <Form.Control
                 onChange={(e) => setRecipe_pic(e.target.files[0])}
@@ -130,7 +147,7 @@ function CreateRecipe(props) {
                   setForm({ ...form, cooking_time: e.target.value })
                 }
                 type="text"
-                placeholder="Cooking Time"
+                placeholder="Cooking Time (hh:mm)"
                 required
               />
             </Form.Group>
