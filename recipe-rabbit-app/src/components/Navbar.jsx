@@ -65,6 +65,9 @@ function NavigationBar() {
               <NavDropdown.Item as={Link} to={`/profile/${user.id}/`}>
                 Profile
               </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={`/favorites/`}>
+                Favorites
+              </NavDropdown.Item>
               <NavDropdown.Item onClick={userActions.logout}>
                 Logout
               </NavDropdown.Item>

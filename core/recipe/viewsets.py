@@ -66,3 +66,10 @@ class RecipeViewSet(AbstractViewSet):
             recipes = Recipe.objects.none()
         serializer = RecipeSerializer(recipes, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'], url_path='favorites')
+    def get_favorites(self, request):
+        user = request.user
+        favorites = user.recipes_favorited.all()
+        serializer = RecipeSerializer(favorites, many=True, context={'request': request})
+        return Response(serializer.data)

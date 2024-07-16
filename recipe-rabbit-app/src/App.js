@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SingleRecipe from "./pages/SingleRecipe";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import Favorites from "./pages/Favorites";
 
 function App() {
   return (
@@ -24,6 +25,14 @@ function App() {
         element={
           <ProtectedRoute>
             <SingleRecipe />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/favorites/"
+        element={
+          <ProtectedRoute>
+            <Favorites />
           </ProtectedRoute>
         }
       />

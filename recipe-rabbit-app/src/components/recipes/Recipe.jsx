@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useLocation } from 'react-router-dom';
 import { format } from "timeago.js";
-import { HeartOutlined, CommentOutlined, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Image, Card, Dropdown } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
@@ -164,22 +164,6 @@ function Recipe(props) {
               <small>Favorite</small>
             </p>
           </div>
-          {!isSingleRecipe && (
-            <div className="d-flex flex-row">
-              <CommentOutlined
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  padding: "2px",
-                  fontSize: "20px",
-                  color: "#C4C4C4",
-                }}
-              />
-              <p className="ms-1 mb-0">
-                <small>Comment</small>
-              </p>
-            </div>
-          )}
         </Card.Footer>
       </Card>
     </>

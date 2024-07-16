@@ -57,3 +57,12 @@
   margin-bottom: 0.5rem; /* Adds space below the title */
   color: #333; /* Adjust the color as needed */
 }
+
+.welcome-text {
+  color: #F7BB43;
+}
+
+.logo-login {
+  max-width: 100px; /* Adjust the size as needed */
+  margin-bottom: 20px; /* Space between the logo and the heading */
+}
