@@ -13,10 +13,10 @@ load_dotenv()
 ENV = os.environ.get("ENV")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="ak&dykqbk2t*k%f66icv*g%@d24cg72_$a29p(4i)c#_rn6pjj")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
+DEBUG = False if ENV == "PROD" else True
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
@@ -78,9 +78,13 @@ WSGI_APPLICATION = 'CoreRoot.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE_NAME", "coredb"),
+        "USER": os.getenv("DATABASE_USER", "core"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "123"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        "PORT": os.getenv("DATABASE_PORT", "5432"),
     }
 }
 
@@ -136,10 +140,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-    'http://127.0.0.1',
-    'http://0.0.0.0',
+    
 ]
 CORS_ALLOW_CREDENTIALS = True
 
