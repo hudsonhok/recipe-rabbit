@@ -5,7 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-
+SSH.pem
+recipe-rabbit-api
+recipe-rabbit-api.pub
 # Distribution / packaging
 .Python
 build/
