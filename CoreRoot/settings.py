@@ -141,9 +141,6 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-CORS_ALLOWED_ORIGINS = [
-    
-]
 CORS_ALLOW_CREDENTIALS = True
 
 # Media files
