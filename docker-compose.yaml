@@ -16,6 +16,7 @@ services:
     build: .
     restart: always
     env_file: .env
+    mem_limit: 4g
     ports:
       - "8000:8000"
     command: >
