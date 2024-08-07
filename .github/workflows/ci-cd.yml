@@ -33,4 +33,6 @@ jobs:
         host: ${{ secrets.SSH_EC2_IP }}
         username: ${{ secrets.SSH_EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: docker-ec2-deploy.sh
+        script: |
+          chmod +x docker-ec2-deploy.sh
+          ./docker-ec2-deploy.sh
