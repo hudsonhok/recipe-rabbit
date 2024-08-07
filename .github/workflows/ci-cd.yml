@@ -16,6 +16,8 @@ jobs:
       run: |
         docker compose up -d --build
         docker compose logs
-    - name: Running Tests inside Docker containers
+    - name: Monitor resource usage
       run: |
+        docker stats --no-stream &
         docker compose exec -T api pytest
+        kill $!
