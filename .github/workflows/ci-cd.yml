@@ -34,10 +34,5 @@ jobs:
         username: ${{ secrets.SSH_EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          pwd
-          ls -la ~
-          ls -la ~/.scripts
-          whoami
-          echo $PATH
-          chmod +x docker-ec2-deploy.sh
+          cd ~/.scripts
           ./docker-ec2-deploy.sh
