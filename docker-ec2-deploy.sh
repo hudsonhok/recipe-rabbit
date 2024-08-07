@@ -2,6 +2,7 @@
 
 TARGET='main'
 
+mkdir -p ~/api
 cd ~/api || exit
 
 ACTION_COLOR='\033[1;90m'
