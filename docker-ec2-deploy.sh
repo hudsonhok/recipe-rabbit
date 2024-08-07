@@ -2,23 +2,10 @@
 
 TARGET='main'
 
-REPO_URL='https://github.com/hudsonhok/recipe-rabbit.git'
-REPO_DIR=~/api
+cd ~/api || exit
 
 ACTION_COLOR='\033[1;90m'
 NO_COLOR='\033[0m'
-
-# Create the directory if it doesn't exist
-mkdir -p $REPO_DIR
-
-# Navigate to the directory
-cd $REPO_DIR || exit
-
-# Check if the directory is a git repository
-if [ ! -d .git ]; then
-  echo -e "${ACTION_COLOR} Cloning repository ${NO_COLOR}"
-  git clone $REPO_URL . || exit
-fi
 
 echo -e ${ACTION_COLOR} Checking if we are on the target branch
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
