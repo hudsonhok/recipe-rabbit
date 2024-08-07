@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-16-core
     steps:
     - uses: actions/checkout@v3
     - name: Injecting environment vars
@@ -16,6 +16,8 @@ jobs:
       run: |
         docker compose up -d --build
         docker compose logs
-    - name: Running Tests inside Docker containers
+    - name: Monitor resource usage
       run: |
+        docker stats --no-stream &
         docker compose exec -T api pytest
+        kill $!
