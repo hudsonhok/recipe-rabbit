@@ -15,10 +15,8 @@ class UserSerializer(AbstractSerializer):
         representation = super().to_representation(instance)
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
-            return representation
-        if settings.DEBUG:  # debug enabled for dev
-            request = self.context.get('request')
-            representation['avatar'] = request.build_absolute_uri(representation['avatar'])
+        else:
+            representation['avatar'] = f"{settings.MEDIA_URL}{representation['avatar']}"
         return representation
 
     class Meta:
