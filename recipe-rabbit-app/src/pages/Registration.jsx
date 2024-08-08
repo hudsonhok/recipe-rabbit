@@ -10,7 +10,7 @@ function Registration() {
           <div className="content text-center px-4">
             <h1 className="text-primary">Welcome to the Recipe Rabbit!</h1>
             <p className="content">
-              This is a new recipe sharing site that allows you to share and try new recipes! Register now and start
+              A recipe sharing site that allows you to share and try new recipes! Register now and start
               cooking! <br />
               Or if you already have an account, please{" "}
               <Link to="/login/">login</Link>.
