@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
-
+import os
 from core.abstract.serializers import AbstractSerializer
 from core.user.models import User
 
@@ -16,7 +16,7 @@ class UserSerializer(AbstractSerializer):
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
         else:
-            representation['avatar'] = f"{settings.MEDIA_URL}{representation['avatar']}"
+            representation['avatar'] = os.path.join(settings.MEDIA_URL, representation['avatar'])
         return representation
 
     class Meta:
