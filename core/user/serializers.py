@@ -16,7 +16,7 @@ class UserSerializer(AbstractSerializer):
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
         else:
-            representation['avatar'] = os.path.join(settings.MEDIA_URL, representation['avatar'])
+            representation['avatar'] = f"{settings.BASE_URL}{representation['avatar']}"
         return representation
 
     class Meta:
