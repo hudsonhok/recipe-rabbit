@@ -34,7 +34,7 @@ const refreshAuthLogic = async (failedRequest) => {
         refresh: getRefreshToken(),
       },
       {
-        baseURL: "http://localhost:8000/api",
+        baseURL: process.env.REACT_APP_API_URL,
       }
     )
     .then((resp) => {

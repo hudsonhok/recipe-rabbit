@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
-import os
+
 from core.abstract.serializers import AbstractSerializer
 from core.user.models import User
 
@@ -15,8 +15,10 @@ class UserSerializer(AbstractSerializer):
         representation = super().to_representation(instance)
         if not representation['avatar']:
             representation['avatar'] = settings.DEFAULT_AVATAR_URL
-        else:
-            representation['avatar'] = f"{settings.BASE_URL}{representation['avatar']}"
+            return representation
+        if settings.DEBUG:  # debug enabled for dev
+            request = self.context.get('request')
+            representation['avatar'] = request.build_absolute_uri(representation['avatar'])
         return representation
 
     class Meta:
