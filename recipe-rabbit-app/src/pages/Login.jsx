@@ -13,7 +13,7 @@ function Login() {
             <h1 className="welcome-text">Welcome to Recipe Rabbit!</h1>
             <p className="content">
               Login now and start cooking! <br />
-              Or if you don't have an account, please{" "}
+              Or if you don't have an account, {" "}
               <Link to="/register/">register</Link>.
             </p>
           </div>
