@@ -147,5 +147,7 @@ CORS_ALLOW_CREDENTIALS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
+BASE_URL = os.environ.get("BASE_URL")
+
 # Default avatar URL
 DEFAULT_AVATAR_URL = "https://api.dicebear.com/9.x/identicon/svg?seed=Lucky"
